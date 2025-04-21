@@ -6,6 +6,8 @@ import ProductSection from "@/components/ProductSection";
 import CinemaSection from "@/components/CinemaSection";
 import Footer from "@/components/Footer";
 import { ProductProps } from "@/components/ProductCard";
+import BgMusicPlayer from "@/components/BgMusicPlayer";
+import ProductModal from "@/components/ProductModal";
 
 const Index = () => {
   // Featured drinks products
@@ -80,26 +82,53 @@ const Index = () => {
     },
   ];
 
+  // Modal control
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalProduct, setModalProduct] = React.useState<ProductProps | null>(null);
+  const [modalQuantity, setModalQuantity] = React.useState(1);
+
+  const openModal = (product: ProductProps) => {
+    setModalProduct(product);
+    setModalQuantity(1);
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  const handleAddToCart = () => {
+    // Optionally add product/quantity to cart here!
+    closeModal();
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-kawaii-cream relative">
       <Navbar />
+      <BgMusicPlayer />
+      <ProductModal
+        open={modalOpen}
+        onClose={closeModal}
+        product={modalProduct}
+        quantity={modalQuantity}
+        setQuantity={setModalQuantity}
+        onAddToCart={handleAddToCart}
+      />
       <main>
         <HeroBanner />
-        
+
         <ProductSection
           title="Kawaii Drinks"
           subtitle="Sip on something sweet and kawaii!"
           products={featuredDrinks}
-          showMoreLink="/drinks"
+          onProductClick={openModal}
         />
-        
+
         <ProductSection
           title="Cute Treats"
           subtitle="Adorable snacks that are almost too cute to eat!"
           products={featuredFoods}
-          showMoreLink="/food"
+          onProductClick={openModal}
         />
-        
+
         <CinemaSection />
       </main>
       <Footer />

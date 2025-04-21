@@ -1,44 +1,73 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart, ShoppingBasket, Coffee, Utensils, Film, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-
 import bintuLogo from "/lovable-uploads/8889ca95-1374-4feb-aab0-fe4834275956.png";
 
 const PopcornParticle = ({ index }: { index: number }) => {
   const randomDelay = `${Math.random() * 3}s`;
   const randomLeft = `${Math.random() * 50 + 25}px`;
-  
+
   return (
-    <div 
-      className="popcorn" 
-      style={{ 
-        left: randomLeft, 
+    <div
+      className="popcorn"
+      style={{
+        left: randomLeft,
         animationDelay: randomDelay,
         top: `${5 + index * 2}px`
-      }} 
+      }}
     />
   );
 };
 
-const NavLink = ({ to, icon: Icon, children }: { to: string; icon?: React.ElementType; children: React.ReactNode }) => (
-  <Link
-    to={to}
-    className="relative group flex items-center gap-1.5 text-purple-700 font-semibold hover:text-purple-500 transition-colors duration-200"
-  >
-    {Icon && <Icon size={18} />}
-    <span>{children}</span>
-    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-kawaii-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-  </Link>
-);
+const scrollToSection = (id: string) => {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
+const NavLink = ({
+  to,
+  icon: Icon,
+  children,
+  scrollTarget,
+}: {
+  to?: string;
+  icon?: React.ElementType;
+  children: React.ReactNode;
+  scrollTarget?: string;
+}) => {
+  return scrollTarget ? (
+    <button
+      onClick={() => scrollToSection(scrollTarget)}
+      className="relative group flex items-center gap-1.5 text-purple-700 font-semibold hover:text-purple-500 transition-colors duration-200 bg-transparent border-none p-0 m-0"
+      style={{ background: "none", outline: "none" }}
+      type="button"
+    >
+      {Icon && <Icon size={18} />}
+      <span>{children}</span>
+      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-kawaii-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+    </button>
+  ) : (
+    <Link
+      to={to || "#"}
+      className="relative group flex items-center gap-1.5 text-purple-700 font-semibold hover:text-purple-500 transition-colors duration-200"
+    >
+      {Icon && <Icon size={18} />}
+      <span>{children}</span>
+      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-kawaii-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+    </Link>
+  );
+};
 
 const Navbar = () => {
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  
+
   return (
     <header className="sticky top-0 z-50 bg-white bg-opacity-80 backdrop-blur-md border-b border-kawaii-purple/30 shadow-sm">
       <div className="container mx-auto px-4 py-4">
@@ -50,12 +79,11 @@ const Navbar = () => {
                 <PopcornParticle key={i} index={i} />
               ))}
             </Link>
-            
             {!isMobile && (
               <div className="hidden md:flex items-center space-x-6">
                 <NavLink to="/" icon={Heart}>Home</NavLink>
-                <NavLink to="/drinks" icon={Coffee}>Order Drinks</NavLink>
-                <NavLink to="/food" icon={Utensils}>Order Food</NavLink>
+                <NavLink icon={Coffee} scrollTarget="drinks-section">Order Drinks</NavLink>
+                <NavLink icon={Utensils} scrollTarget="food-section">Order Food</NavLink>
                 <NavLink to="/cinema" icon={Film}>Buy Movie Tickets</NavLink>
                 <NavLink to="/about" icon={Info}>About</NavLink>
               </div>
@@ -69,11 +97,10 @@ const Navbar = () => {
                 0
               </span>
             </Button>
-            
             {isMobile && (
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden"
               >
@@ -105,12 +132,11 @@ const Navbar = () => {
             )}
           </div>
         </nav>
-        
         {isMobile && isMenuOpen && (
           <div className="md:hidden py-4 border-t border-kawaii-purple/30 mt-4 flex flex-col space-y-4">
             <NavLink to="/" icon={Heart}>Home</NavLink>
-            <NavLink to="/drinks" icon={Coffee}>Order Drinks</NavLink>
-            <NavLink to="/food" icon={Utensils}>Order Food</NavLink>
+            <NavLink icon={Coffee} scrollTarget="drinks-section">Order Drinks</NavLink>
+            <NavLink icon={Utensils} scrollTarget="food-section">Order Food</NavLink>
             <NavLink to="/cinema" icon={Film}>Buy Movie Tickets</NavLink>
             <NavLink to="/about" icon={Info}>About</NavLink>
           </div>
