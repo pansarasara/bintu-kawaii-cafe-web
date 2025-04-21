@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+        sans: ['Nunito', 'sans-serif'],
+        display: ['Fredoka One', 'cursive'],
+      },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,12 +66,23 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        // Kawaii theme colors
+        kawaii: {
+          lilac: '#E5DEFF',
+          purple: '#C3B1E1',
+          pink: '#FFDEE2',
+          gold: '#FFD180',
+          cream: '#FFF6E8',
+        }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: 'calc(var(--radius) - 4px)',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
+        '4xl': '2rem',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -84,11 +100,37 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'sparkle': {
+          '0%': { transform: 'scale(0)', opacity: '0' },
+          '50%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(0)', opacity: '0' },
+        },
+        'bounce': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' }
+        },
+        'wiggle': {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        'popcorn-float': {
+          '0%': { transform: 'translateY(0) rotate(0deg)', opacity: '1' },
+          '100%': { transform: 'translateY(-50px) rotate(45deg)', opacity: '0' },
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'float': 'float 3s ease-in-out infinite',
+        'sparkle': 'sparkle 2s ease-in-out infinite',
+        'bounce': 'bounce 1s ease-in-out infinite',
+        'wiggle': 'wiggle 1s ease-in-out infinite',
+        'popcorn-float': 'popcorn-float 3s ease-out forwards'
 			}
 		}
 	},
