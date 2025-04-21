@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogClose, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, X, Heart } from "lucide-react";
 
@@ -28,22 +28,24 @@ const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, item, onAddToC
   return (
     <Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
       <DialogContent
-        className="rounded-3xl p-0 max-w-md shadow-2xl border-2 border-kawaii-purple/20 bg-white/90 relative kawaii-modal"
+        className="rounded-3xl p-0 max-w-md shadow-2xl border-2 border-kawaii-purple/20 bg-white/90 relative kawaii-modal animate-fade-in"
         style={{
           overflow: "visible",
+          zIndex: 9999, // always on top
         }}
       >
+        <DialogTitle className="sr-only">{item.name}</DialogTitle>
+        {/* Only one visible top-right close button */}
         <DialogClose asChild>
           <button
             type="button"
             aria-label="Close"
-            className="absolute right-4 top-4 bg-white rounded-full p-1 shadow hover:bg-pink-100 transition-colors"
+            className="absolute right-4 top-4 bg-white rounded-full p-1 shadow hover:bg-pink-100 transition-colors z-50"
             onClick={onClose}
           >
             <X className="w-5 h-5 text-kawaii-purple" />
           </button>
         </DialogClose>
-
         <div className="flex flex-col items-center py-8 px-6">
           <img
             src={item.image}
@@ -86,10 +88,10 @@ const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, item, onAddToC
           </Button>
         </div>
         {/* Cute floating popcorn/hearts */}
-        <div className="absolute -top-6 left-12 animate-bounce">
+        <div className="absolute -top-6 left-12 animate-bounce z-10">
           <img src="https://pngimg.com/d/popcorn_PNG36.png" alt="" className="w-10 h-10 opacity-70" />
         </div>
-        <div className="absolute -top-8 right-14 animate-pulse">
+        <div className="absolute -top-8 right-14 animate-pulse z-10">
           <Heart className="text-pink-300 w-6 h-6" fill="#ffdee2" />
         </div>
       </DialogContent>
