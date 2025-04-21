@@ -2,13 +2,6 @@
 import React from "react";
 import OrderModal from "@/components/OrderModal";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
 
 const DRINKS = [
   {
@@ -57,56 +50,38 @@ const OrderDrinks: React.FC = () => {
   return (
     <main className="section-padding min-h-[70vh] bg-gradient-to-br from-[#FFD1F9] via-[#FFF7E6] to-[#E5DEFF]">
       <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
-        <div className="flex flex-col gap-2 items-center mt-2">
+        <div className="flex flex-col gap-2 items-center">
           <img src={mascot} alt="Bintu mascot holding drink" className="w-20 h-20 drop-shadow-lg mb-2 animate-float" style={{objectFit:'contain'}} />
           <h1 className="font-display text-3xl md:text-4xl text-purple-700 mb-1">Sip & Chill with Bintu!</h1>
           <span className="text-lg text-purple-600 opacity-90 mb-3">Hey friend! Ready to sip something sweet and magical?</span>
         </div>
-        <div className="w-full max-w-3xl flex flex-row items-center justify-center my-8">
-          <Carousel
-            opts={{
-              align: "center",
-              slidesToScroll: 1,
-              dragFree: false,
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselPrevious />
-            <CarouselContent className="px-2">
-              {DRINKS.map((item, i) => (
-                <CarouselItem
-                  key={item.name}
-                  className="basis-1/3 max-w-xs flex-shrink-0"
-                >
-                  <div
-                    className="rounded-2xl card-gradient shadow-lg cursor-pointer transition-transform hover:scale-105 hover:shadow-2xl group relative flex flex-col h-full"
-                    onClick={() => handleOrderClick(item)}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-40 object-cover rounded-t-2xl"
-                    />
-                    <div className="p-4 flex flex-col gap-2 grow">
-                      <h2 className="text-xl font-bold text-purple-700">{item.name}</h2>
-                      <p className="text-muted-foreground text-sm">{item.description}</p>
-                      <div className="flex justify-between items-center mt-2">
-                        <span className="text-lg font-bold text-pink-600">${item.price.toFixed(2)}</span>
-                        <Button variant="accent" size="sm" className="rounded-full shadow flex gap-1">
-                          Order
-                        </Button>
-                      </div>
-                    </div>
-                    <span className="absolute -top-5 -right-5">
-                      <img src="https://pngimg.com/d/popcorn_PNG36.png" alt="" className="w-10 h-10 opacity-80" />
-                    </span>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselNext />
-          </Carousel>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+          {DRINKS.map((item) => (
+            <div
+              key={item.name}
+              onClick={() => handleOrderClick(item)}
+              className="rounded-2xl card-gradient shadow-lg cursor-pointer transition-transform hover:scale-105 hover:shadow-2xl relative group"
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-40 object-cover rounded-t-2xl"
+              />
+              <div className="p-4 flex flex-col gap-2">
+                <h2 className="text-xl font-bold text-purple-700">{item.name}</h2>
+                <p className="text-muted-foreground text-sm">{item.description}</p>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-lg font-bold text-pink-600">${item.price.toFixed(2)}</span>
+                  <Button variant="accent" size="sm" className="rounded-full shadow flex gap-1">
+                    Order
+                  </Button>
+                </div>
+              </div>
+              <span className="absolute -top-5 -right-5">
+                <img src="https://pngimg.com/d/popcorn_PNG36.png" alt="" className="w-10 h-10 opacity-80" />
+              </span>
+            </div>
+          ))}
         </div>
         <OrderModal
           isOpen={modalOpen}
