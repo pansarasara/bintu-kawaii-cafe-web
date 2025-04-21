@@ -54,8 +54,8 @@ const Navbar = () => {
             {!isMobile && (
               <div className="hidden md:flex items-center space-x-6">
                 <NavLink to="/" icon={Heart}>Home</NavLink>
-                <NavLink to="/drinks" icon={Coffee}>Order Drinks</NavLink>
-                <NavLink to="/food" icon={Utensils}>Order Food</NavLink>
+                <NavLink to="/order-drinks" icon={Coffee}>Order Drinks</NavLink>
+                <NavLink to="/order-food" icon={Utensils}>Order Food</NavLink>
                 <NavLink to="/cinema" icon={Film}>Buy Movie Tickets</NavLink>
                 <NavLink to="/about" icon={Info}>About</NavLink>
               </div>
@@ -109,8 +109,8 @@ const Navbar = () => {
         {isMobile && isMenuOpen && (
           <div className="md:hidden py-4 border-t border-kawaii-purple/30 mt-4 flex flex-col space-y-4">
             <NavLink to="/" icon={Heart}>Home</NavLink>
-            <NavLink to="/drinks" icon={Coffee}>Order Drinks</NavLink>
-            <NavLink to="/food" icon={Utensils}>Order Food</NavLink>
+            <NavLink to="/order-drinks" icon={Coffee}>Order Drinks</NavLink>
+            <NavLink to="/order-food" icon={Utensils}>Order Food</NavLink>
             <NavLink to="/cinema" icon={Film}>Buy Movie Tickets</NavLink>
             <NavLink to="/about" icon={Info}>About</NavLink>
           </div>
