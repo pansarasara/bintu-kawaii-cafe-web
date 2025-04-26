@@ -14,7 +14,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/bintu-kawaii-cafe-web">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/drinks" element={<NotFound />} />

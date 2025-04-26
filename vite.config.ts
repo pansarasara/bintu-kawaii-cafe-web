@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "./", // Add this line for GitHub Pages compatibility
+  base: "/bintu-kawaii-cafe-web/", // Updated base path for correct GitHub Pages path
   plugins: [
     react(),
     mode === 'development' &&
